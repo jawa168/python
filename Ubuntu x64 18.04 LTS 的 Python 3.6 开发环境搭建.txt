@@ -1,0 +1,210 @@
+
+Ubuntu x64 18.04 LTS 的 Python 3.6 开发环境搭建     jawa 2018.06.05C
+
+------------------------------------------------------------------
+
+基本配置：
+------------------------------------------------------------------
+
+	sudo				# 普通用户执行系统管理员命令
+	cd /home/用户名			# 进入用户根目录
+mkdir tools			# 创建tools目录
+sudo passwd root		# 更新密码
+su				# 切换成root用户
+sudo apt-get update 		# 更新软件包
+
+sudo apt install net-tools      # 安装ifconfig 
+sudo apt install vim		# 安装vim （插入模式i 放弃并退出esc+:+q+！保存并退出esc+:+w+q+! ）
+
+
+sudo ifconfig -a		# 查看IP
+
+	#	sudo ifconfig ens33 192.168.126.130 netmask 255.255.255.0	# 修改主机IP
+	#	sudo route add default gw 192.168.126.1				# 修改路由IP
+	#	vim /etc/resolv.conf						# 配置DNS  nameserver 202.102.192.68
+	#	sudo vim /etc/network/interfaces				# 编辑网络文件
+
+cd /media/用户名/VMware\ Tools			# 进入虚拟光驱 cp VMwareTools-10.2.0-7259539.tar.gz /home/用户名/
+tar -xzvf VMwareTools-10.2.0-7259539.tar.gz	# cd vmware-tools-distrib -> sudo ./vmware-install.pl
+
+sudo apt-get install openssh-server		# 安装openssh-server 端口号：22
+
+	sudo netstat -atunp | more	# 查看进程端口号
+	sudo lsof -i:22			# 根据端口号来查看进程号
+	sudo lsb_release -a		# 查看ubuntu 版本号
+	cat /proc/version		# 查看linux 内核版本号
+	cal				# 查看当月日历
+	date				# 查看日期时间
+	date -s "2018-06-04 15:00"	# 修改日期时间
+	sudo hwclock --systohc		# 保存当前的日期时间
+	which				# 查看安装路径
+	top				# 实时查看系统整体运行情况
+	sudo find / -name xxx		# 查找xxx软件安装目录
+	sudo apt-get install xxx	# 安装软件
+	sudo apt-get remove xxx		# 卸载软件
+	sudo apt-get update xxx		# 更新软件信息数据库
+	sudo apt-get upgrade xxx	# 进行系统升级 
+	sudo apt-cache search 		# 搜索软件包 
+	sudo dpkg -i xxx.deb		# 安装deb软件包
+	sudo dpkg -r xxx.deb		# 删除软件包 
+	sudo dpkg -r --purge xxx.deb	# 连同配置文件一起删除 
+	sudo dpkg -info xxx.deb		# 查看软件包信息 
+	sudo dpkg -L xxx.deb		# 查看文件拷贝详情 
+	sudo dpkg -l			# 查看系统中已安装软件包信息 
+	sudo dpkg-reconfigure xxx	# 重新配置软件包 
+	df				# 显示文件系统中还有多少剩余空间
+	du				# 显示目录中文件或目录的具体大小
+	free				# 显示内存使用情况
+	uname -a			# 显示所有的系统信息
+	pwd				# 显示当前位置
+	cd				# 进入目录 
+	ls				# 列出详细资料
+	ll				# 查看一个目录下的文件和子目录的属性和大小
+	cp				# 复制
+	mv				# 移动
+	rm				# 删除文件
+	rmdir				# 删除目录
+	mkdir				# 创建目录
+	man				# 在线手册
+	chown 用户名 文件		# 修改文件的所有者
+	chgrp 组名   文件		# 修改文件的属组
+	chown -R 用户 目录		# 更改目录本身以及目录中的子文件的所有人
+	chgrp -R 组名 目录		# 更改目录本身以及目录中的子文件的所有组
+	chmod 777 目录			# 修改文件权限
+	reboot				# 立即重启
+	shutdown -h now			# 立即关机
+	shutdown -h 5			# 5分钟后自动关机
+	sudo apt-get install ufw	# 安装防火墙
+	sudo ufw enable			# 启用防火墙
+	sudo ufw disable 		# 关闭防火墙
+	sudo ufw status 		# 查看防火墙状态
+	sudo ufw allow 80 		# 允许外部访问80端口 
+	sudo ufw delete allow 80 	# 禁止外部访问80端口
+	sudo ufw allow from 192.168.1.1 # 允许此IP访问所有的本机端口
+	sudo ufw deny smtp 		# 禁止外部访问smtp服务
+	sudo ufw delete allow smtp 	# 删除上面建立的某条规则
+	sudo ufw deny proto tcp from 10.0.0.0/8 to 192.168.0.1 port 22    # 要拒绝所有的TCP流量从10.0.0.0/8 到192.168.0.1地址的22端口
+	可以允许所有RFC1918网络（局域网/无线局域网的）访问这个主机（/8,/16,/12是一种网络分级）：
+	sudo ufw allow from 10.0.0.0/8
+	sudo ufw allow from 172.16.0.0/12
+	sudo ufw allow from 192.168.0.0/16
+
+
+
+
+开发配置：
+------------------------------------------------------------------
+cd /usr/bin
+sudo rm python
+sudo ln -s python3.6 python	# 修改系统默认python版本为3.6
+
+sudo apt update			# 更新软件包列表
+	sudo apt-get install python3-pyqt5	# 安装pyqt5
+sudo apt install python3-pip	# 安装pip3     pip3 --version
+sudo apt install build-essential python3-dev  python3-setuptools	# python3开发工具构建
+
+	卸载程序包运行：pip3 uninstall xxx
+	从PyPI搜索软件包：pip3 search "xxx"
+	列出已安装的软件包：pip3 list
+	要列出过期的软件包：pip3 list --outdated
+	
+pip3 install PyQt5 -i https://pypi.douban.com/simple		# 安装PyQt5
+	pip3 install PyQt5-tools -i https://pypi.douban.com/simple	# 安装PyQt5-tools   无法安装！！！
+pip3 install jedi -i https://pypi.douban.com/simple		# 安装jedi
+pip3 install matplotlib -i https://pypi.douban.com/simple	# matplotlib
+pip3 install pygame -i https://pypi.douban.com/simple		# pygame
+pip3 install PyInstaller -i https://pypi.douban.com/simple	# PyInstaller
+	# PyInstaller-3.3.1、altgraph-0.15、future-0.16.0、macholib-1.9、pefile-2017.11.5、pypiwin32-223、pywin32-223   打包程序
+	# 程序打包命令：pyinstaller -F -w 主程序.py                # 产生 build、dist 目录和 主模块.spec、主模块.pyc 文件 ...
+	# python3.6、PyQt5、pygame1.9 等 x64/x32 程序都支持打包，打包后在运行 主程序 前必须先将字体、图片、图标、声音、视频等包含资源文件的目录拷贝到 
+	  主程序 同一目录中，否则 主程序 将无法正常运行！
+
+sudo apt-get install qt5-default qttools5-dev-tools		# 安装qtdesigner  运行：桌面-》显示应用程序-》Qt5 设计器
+	cd /usr/lib/x86_64-linux-gnu/qt5/bin	# QT5 Designer 目录
+	./designer				# 运行 QT5 Designer 图形设计界面程序
+
+	通过官方PPA来安装Ubuntu Make：
+	1.sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
+	2.sudo apt-get update
+	3.sudo apt-get install ubuntu-make
+	安装Ubuntu Make完后，接着使用下列命令安装Visual Studio Code：
+	1.umake web visual-studio-code			#  无法安装！！！
+	卸载Visual Studio Code，同样使用Ubuntu Make命令。如下：
+	1.umake web visual-studio-code --remove
+	2.sudo apt-get remove ubuntu-make
+
+	sudo apt-get install alien					# 安装alien软件
+	sudo alien --scripts code-1.23.1-1525968555.el7.x86_64.rpm	# 把rpm转换成.deb文件 
+	sudo dpkg -i code_1.23.1-1525968555_amd64.deb	
+
+sudo dpkg -i code_1.23.1-1525968403_amd64.deb	# 注：先下载VSCode软件 https://code.visualstudio.com/  下载 .deb，再安装  sudo apt install libgconf-2-4   sudo apt --fix-broken install   # 修正错误后再试
+						  运行：桌面-》显示应用程序-》Visual Studio Code
+						  或 /usr/bin/code
+
+
+				
+	ubuntu 16.04 VSCode 配置C++开发环境
+	sudo add-apt-repository ppa:ubuntu-toolchain-r/tes  //添加源
+	sudo apt-get update　//更新
+	sudo apt-get install gcc    //安装ｇｃｃ
+	sudo apt-get install g++    //安装ｇ＋＋
+	cd /home/simon/软件包  //转至vscode安装包文件夹
+	dpkg -i code_1.18.1-1510857349_amd64.deb　　　//安装已下载的deb包 
+
+	VSCode-》C/C++ ms-vscode.cpptools
+
+VSCode-》查看-》扩展（Ctrl+Shift+X）-》在商店中搜索扩展：python-》点击 Python 2018.4.0 安装、重新加载
+
+VSCode-》查看-》扩展（Ctrl+Shift+X）-》在商店中搜索扩展：PYQT Integration-》点击 PYQT Integration 0.1.4 安装、重新加载
+
+VSCode-》查看-》扩展（Ctrl+Shift+X）-》在商店中搜索扩展：chinese-》点击  Chinese (Simplified) Language Pack for Visual Studio Code 1.23.5 安装、重新加载
+
+VSCode-》根据提示安装 Pylint 1.9.1
+
+导入项目：VSCode-》文件-》打开文件夹 或 VSCode-》资源管理器-》打开文件夹
+关闭项目：VSCode-》文件-》关闭文件夹 
+
+注意：程序运行时相关的文件和目录权限一定要设置好，否则程序将由于权限不够而无法正常运行！
+      chown -R 用户名 目录	# 更改权限所有人
+      chmod -R 777 目录		# 更改目录权限
+
+创建 PyQt5 的 xxx.ui 程序：VSCode-》资源管理器-》新建文件-》输入 xxx.ui -》鼠标右击 xxx.ui 文件 -》PYQT：Edit In Desinger-》
+开始用 Qt Designer 可视化编辑窗口界面并保存该文件...
+将 xxx.ui 文件XML格式转换为 xxx.py 文件格式：VSCode-》资源管理器-》鼠标右击 xxx.ui 文件 -》PYQT: Compile Form-》自动产生 xxx.py
+
+运行程序：命令行-》进入目录-》python 主程序.py 或 VSCode-》资源管理器-》鼠标右击 主程序.py 文件名-》点击：在终端中运行 Python 文件
+
+运行 python 会自动产生 __pycache__ 目录，存放存放 *.pyc 文件
+
+python 命令行：VSCode-》查看-》集成终端-》python-》 >>>
+ 
+VSCode-》查看-》扩展（Ctrl+Shift+X）-》在商店中搜索扩展：jedi-》点击 Language Jedi 0.1.0 安装、重新加载
+
+VSCode-》查看-》扩展（Ctrl+Shift+X）-》在商店中搜索扩展：pygame-》点击 Pygame Snippets 0.0.1 安装、重新加载
+
+sudo python -m pip install -U pylint --user	# 安装pylint
+
+
+
+实用工具：
+------------------------------------------------------------------
+
+sudo apt-get install wine-development		# 安装wine程序
+wine portmap.exe			# 运行windows程序：端口映射程序portMap.exe
+wine tcping.exe	-t www.sina.com 80	# 运行windows程序：端口IP测试程序tcping.exe 测试www.sina.com 的80端口
+
+将C:\Program Files (x86)\Radmin Viewer 3（安装目录）整个目录拷贝到 /home/用户名/tools/ 目录中
+将C:\Users\jawa\AppData\Roaming\Radmin\radmin.rpb 文件拷贝到 /home/用户名/tools/radmin/ 目录中
+cd /home/用户名/tools/radmin/ 进入Radmin3目录
+wine radmin.exe				# 运行 radmin.exe  导入.rpb 文件、配置相应的IP、端口号、账号和密码  注意：目录权限设置
+
+wine photoshop
+wine teamviewer
+
+
+
+
+
+
+
+

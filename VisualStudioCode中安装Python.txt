@@ -1,0 +1,93 @@
+VisualStudioCode1.23 + Python3.6 for Windows10x64 安装配置手册
+jawa 20180601A
+
+主要模块：
+PyQt5.10、Matplotlib2.2、Pygame1.9、PyInstaller3.3
+
+辅助工具：
+Acrobat9Pro、DreamweaverCC2018、IconWorkshop、PhotoshopCS5、Setup2Go、NavicatPremium、VMwareWorkstationPro14.1
+---------------------------------------------------------------------------------------------------------------------
+
+【】安装Python3.6.5：
+C:\>python-3.6.5-amd64.exe
+选择 Add Python3.6 to PATH 并点击 Customize installation -> 选择 Install for all users 和 Customize install location：C:\Python36 -> 将Python 3.6.5 安装到 C:\Python36 目录
+
+【】安装PyQt5.10.1、sip 4.19.8：
+C:\>pip install PyQt5 -i https://pypi.douban.com/simple
+
+【】安装PyQt5-tools 5.9.0.1.2：
+C:\>pip install PyQt5-tools -i https://pypi.douban.com/simple
+
+---------------------------------------------------------------------------------------------------------------------
+
+【】Windows环境变量Path设置:
+C:\Python36
+C:\Python36\Scripts
+C:\Python36\Lib\site-packages\pyqt5-tools
+
+---------------------------------------------------------------------------------------------------------------------
+
+【】安装配置 Visual Studio Code 1.23.1
+VSCode-》查看-》扩展（Ctrl+Shift+X）-》在商店中搜索扩展：python-》点击 Python 2018.4.0 安装、重新加载
+
+VSCode-》查看-》扩展（Ctrl+Shift+X）-》在商店中搜索扩展：PYQT Integration-》点击 PYQT Integration 0.1.4 安装、重新加载
+
+VSCode-》查看-》扩展（Ctrl+Shift+X）-》在商店中搜索扩展：chinese-》点击  Chinese (Simplified) Language Pack for Visual Studio Code 1.23.5 安装、重新加载
+
+VSCode-》根据提示安装 Pylint 1.9.1
+
+VSCode-》文件-》首选项-》设置-》{ }User Settings -》用户设置
+{
+    "git.ignoreMissingGitWarning": true,
+    "pyqt-integration.qtdesigner.path":"C:\\Python36\\Lib\\site-packages\\pyqt5-tools\\designer.exe" 
+}              # 设置 VSCode 的 PyQt5 执行文件路径
+或
+VSCode-》文件-》首选项-》设置-》{ }User Settings -》默认用户设置
+PYQT integration configuration(6)
+// Path of QT designer
+"pyqt-integration.qtdesigner.path": "C:\\Python36\\Lib\\site-packages\\pyqt5-tools\\designer.exe"
+
+导入项目：VSCode-》文件-》打开文件夹 或 VSCode-》资源管理器-》打开文件夹
+关闭项目：VSCode-》文件-》关闭文件夹 
+
+创建 PyQt5 的 xxx.ui 程序：VSCode-》资源管理器-》新建文件-》输入 xxx.ui -》鼠标右击 xxx.ui 文件 -》PYQT：Edit In Desinger-》
+开始用 Qt Designer 可视化编辑窗口界面并保存该文件...
+将 xxx.ui 文件XML格式转换为 xxx.py 文件格式：VSCode-》资源管理器-》鼠标右击 xxx.ui 文件 -》PYQT: Compile Form-》自动产生 xxx.py
+
+运行程序：命令行-》进入目录-》python 主程序.py 或 VSCode-》资源管理器-》鼠标右击 主程序.py 文件名-》点击：在终端中运行 Python 文件
+
+运行 python 会自动产生 __pycache__ 目录，存放存放 *.pyc 文件
+
+python 命令行：VSCode-》查看-》集成终端-》python-》 >>>
+
+---------------------------------------------------------------------------------------------------------------------
+
+【】安装配置各种python模块:
+C:\>pip install jedi -i https://pypi.douban.com/simple
+# jedi 0.12.0
+VSCode-》查看-》扩展（Ctrl+Shift+X）-》在商店中搜索扩展：jedi-》点击 Language Jedi 0.1.0 安装、重新加载
+
+C:\>pip install matplotlib -i https://pypi.douban.com/simple
+# matplotlib2.2.2、numpy1.14.3、pytz2018.4、pyparsing2.2、cycler0.10.0、kiwisolver1.0.1、python_dateutil2.7.3   常用函数
+
+C:\>pip install pygame -i https://pypi.douban.com/simple
+# Pygame 1.9.3 游戏开发
+VSCode-》查看-》扩展（Ctrl+Shift+X）-》在商店中搜索扩展：pygame-》点击 Pygame Snippets 0.0.1 安装、重新加载
+
+C:\>pip install PyInstaller -i https://pypi.douban.com/simple
+# PyInstaller-3.3.1、altgraph-0.15、future-0.16.0、macholib-1.9、pefile-2017.11.5、pypiwin32-223、pywin32-223   打包程序
+# 程序打包命令：pyinstaller -F -w 主程序.py                # 产生 build、dist 目录和 主模块.spec、主模块.pyc 文件 ...
+# python3.6、PyQt5、pygame1.9 等 x64/x32 程序都支持打包，打包后在运行 主程序.exe 前必须先将字体、图片、图标、声音、视频等包含资源文件的目录拷贝到 
+  主程序.exe 同一目录中，否则 主程序.exe 将无法正常运行！
+
+VSCode-》查看-》扩展（Ctrl+Shift+X）-》在商店中搜索扩展：github-》点击 GitHub 0.28.1 安装、重新加载
+
+
+
+
+
+
+
+
+
+
