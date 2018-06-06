@@ -1,2 +1,2 @@
 # python
-Python deep learning
+Python Introduction to study
